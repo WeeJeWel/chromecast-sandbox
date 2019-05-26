@@ -13,6 +13,10 @@
       
       console.log('Cast isAvailable');
       const ctx = cast.framework.CastContext.getInstance();
+      ctx.setOptions({
+        receiverApplicationId: CAST_APP_ID,
+        autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
+      });
       ctx.addEventListener(cast.framework.CastContextEventType.SESSION_STATE_CHANGED, e => {
         console.log('Event', e);
         const { sessionState } = e;
@@ -23,14 +27,13 @@
             const session = ctx.getCurrentSession();
             session.sendMessage(CAST_NAMESPACE, JSON.stringify({
               date: new Date(),
-            })).catch(console.error);
+            })).then(() => {
+              console.log('Sent message');
+            }.catch(console.error);
           }, 1000);
         }
       });
-      ctx.setOptions({
-        receiverApplicationId: CAST_APP_ID,
-        autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
-      });      
+      
     };
     </script>
   </head>
