@@ -1,7 +1,7 @@
 
 <html>
   <head>
-    <title>Chromecast Sandbox</title>
+    <title>Chromecast Sandbox Sender</title>
 
     <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
     <script type="text/javascript">
@@ -21,11 +21,13 @@
         const { sessionState } = e;
     
         if( sessionState === 'SESSION_STARTED'
-         || sessionState === 'SESSION_RESUMED' ) {
-          const session = ctx.getCurrentSession();
-          session.sendMessage(CAST_NAMESPACE, JSON.stringify({
-            date: new Date(),
-          })).catch(console.error);
+         || sessionState === 'SESSION_RESUMED' ) {        
+          setInterval(() => {
+            const session = ctx.getCurrentSession();
+            session.sendMessage(CAST_NAMESPACE, JSON.stringify({
+              date: new Date(),
+            })).catch(console.error);
+          }, 1000);
         }
       });
       
