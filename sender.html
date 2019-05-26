@@ -17,8 +17,7 @@
         console.log('Event', e);
         const { sessionState } = e;
 
-        if( sessionState === 'SESSION_STARTED'
-         || sessionState === 'SESSION_RESUMED' ) {
+        if( sessionState === 'SESSION_STARTED' ) {
           setInterval(() => {
             const session = ctx.getCurrentSession();
             session.sendMessage(CAST_NAMESPACE, JSON.stringify({
