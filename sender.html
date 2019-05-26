@@ -7,18 +7,18 @@
     <script type="text/javascript">
     const CAST_NAMESPACE = 'urn:x-cast:com.sandbox';
     const CAST_APP_ID = '8CBC577D';
-        
+
     window['__onGCastApiAvailable'] = isAvailable => {
       if(!isAvailable) return;
-      
+
       console.log('Cast isAvailable');
       const ctx = cast.framework.CastContext.getInstance();
       ctx.addEventListener(cast.framework.CastContextEventType.SESSION_STATE_CHANGED, e => {
         console.log('Event', e);
         const { sessionState } = e;
-    
+
         if( sessionState === 'SESSION_STARTED'
-         || sessionState === 'SESSION_RESUMED' ) {        
+         || sessionState === 'SESSION_RESUMED' ) {
           setInterval(() => {
             const session = ctx.getCurrentSession();
             session.sendMessage(CAST_NAMESPACE, JSON.stringify({
@@ -33,17 +33,22 @@
         receiverApplicationId: CAST_APP_ID,
         autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
       });
-      
+
+
+    if(window.cast) {
+      const $launcher = document.createElement('google-cast-launcher');
+      $launcher.id = 'launcher';
+      document.body.appendChild($launcher);
+    }
+
     };
     </script>
   </head>
   <body>
     <pre>Chromecast Sandbox Sender</pre>
-    
-    <google-cast-launcher id="button"></google-cast-launcher>
-    
+
     <style>
-    #button {
+    #launcher {
       display: block !important;
       width: 50px;
       height: 50px;
