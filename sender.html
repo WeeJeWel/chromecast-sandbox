@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Chromecast Sandbox</title>
+
+    <script src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+    <script type="text/javascript">
+    const CAST_NAMESPACE = 'urn:x-cast:com.sandbox';
+    const CAST_APP_ID = '8CBC577D';
+        
+    window['__onGCastApiAvailable'] = isAvailable => {
+      if(!isAvailable) return;
+      
+      const ctx = cast.framework.CastContext.getInstance();
+      ctx.setOptions({
+        receiverApplicationId: CAST_APP_ID,
+        autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
+      });
+      ctx.addEventListener(cast.framework.CastContextEventType.SESSION_STATE_CHANGED, e => {
+        console.log('Event', e);
+        const { sessionState } = e;
+    
+        if( sessionState === 'SESSION_STARTED'
+         || sessionState === 'SESSION_RESUMED' ) {
+          const session = ctx.getCurrentSession();
+          session.sendMessage(CAST_NAMESPACE, JSON.stringify({
+            date: new Date(),
+          }).catch(console.error);
+        }
+      });
+      
+    };
+    </script>
+  </head>
+  <body>
+    <pre>Chromecast Sandbox Sender</pre>
+  </body>
+</html>
