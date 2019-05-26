@@ -34,12 +34,11 @@
         autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
       });
 
-
-    if(window.cast) {
-      const $launcher = document.createElement('google-cast-launcher');
-      $launcher.id = 'launcher';
-      document.body.appendChild($launcher);
-    }
+      if(window.cast) {
+        const $launcher = document.createElement('google-cast-launcher');
+        $launcher.id = 'launcher';
+        document.body.appendChild($launcher);
+      }
 
     };
     </script>
