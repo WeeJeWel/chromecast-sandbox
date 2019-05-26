@@ -1,3 +1,4 @@
+
 <html>
   <head>
     <title>Chromecast Sandbox</title>
@@ -24,7 +25,7 @@
           const session = ctx.getCurrentSession();
           session.sendMessage(CAST_NAMESPACE, JSON.stringify({
             date: new Date(),
-          }).catch(console.error);
+          })).catch(console.error);
         }
       });
       
