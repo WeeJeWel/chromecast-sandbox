@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Chromecast Sandbox</title>
+
+    <script src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+    <script type="text/javascript">
+    const CAST_NAMESPACE = 'urn:x-cast:com.sandbox';
+        
+    window.addEventListener('load', () => {
+      const ctx = cast.framework.CastReceiverContext.getInstance();
+    
+      ctx.addCustomMessageListener(CAST_NAMESPACE, e => {
+        console.log('Event', e);
+        const $pre = document.createElement('pre');
+        $pre.textContent = JSON.stringify(e.data, false, 2);
+        document.body.appendChild($pre);
+      });
+    
+      ctx.start();
+    
+    });
+    </script>
+  </head>
+  <body>
+    <pre>Chromecast Sandbox:</pre>
+  </body>
+</html>
