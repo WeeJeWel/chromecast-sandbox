@@ -11,6 +11,7 @@
     window['__onGCastApiAvailable'] = isAvailable => {
       if(!isAvailable) return;
       
+      console.log('Cast isAvailable');
       const ctx = cast.framework.CastContext.getInstance();
       ctx.setOptions({
         receiverApplicationId: CAST_APP_ID,
